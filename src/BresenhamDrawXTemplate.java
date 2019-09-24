@@ -10,95 +10,63 @@ public class BresenhamDrawXTemplate extends JPanel{
 
     private void brasenhamAllSquad(Graphics g, Point p1, Point p2) {
         // Set values
-        int x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y;
-        int dx = x2 - x1, dy = y2 - y1, slope = 0, p;
+        int x, y;
+        int dx, dy;
+        int slopeX, slopeY;
+        int p;
 
-        // Reverses the point values if deltaX is negative.
-        if (dx < 0) {
-            brasenhamAllSquad(g, new Point(x2, y2), new Point(x1, y1));
-            return;
-        }
-
-        // Checks the slope of the line.
-        if (dy < 0) {
-            slope = -1;
+        // Sets the slope of the lines according to delta X.
+        if (p2.x >= p1.x) {
+            dx = Math.abs(p2.x - p1.x);
+            slopeX = 1;
         } else {
-            slope = 1;
+            dx = Math.abs(p1.x - p2.x);
+            slopeX = -1;
         }
 
-        // Draw the first spot.
-        draw(g, new Point(x1, y1));
+        // Sets the slope of the lines according to delta X.
+        if (p2.y >= p1.y) {
+            dy = Math.abs(p2.y - p1.y);
+            slopeY = 1;
+        } else {
+            dy = Math.abs(p1.y - p2.y);
+            slopeY = -1;
+        }
 
-        // Runs the algorithm below if the slope of the line is less than or equal to 0.
-        if (dx >= (slope * dy)) {
-            // If y1 > y2
-            if (dy < 0) {
-                p = 2 * dy + dy;
-                while (x1 < x2) {
-                    if (p < 0) {
-                        p = p + 2 * dy + dx;
-                        x1++;
-                        y1--;
-                    } else {
-                        p = p + 2 * dy;
-                        x1++;
-                    }
-                    draw(g, new Point(x1, y1));
+        x = p1.x;
+        y = p1.y;
+
+        if (dx >= dy) {
+            dy <<= 1;
+            p = dy - dx;
+            dx <<= 1;
+
+            while (x != p2.x) {
+                draw(g, new Point(x, y));
+                if (p >= 0) {
+                    y += slopeY;
+                    p -= dx;
                 }
+                p += dy;
+                x += slopeX;
             }
-            // if y1 < y2
-            else {
-                p = 2 * dy - dx;
-                while (x1 < x2) {
-                    if (p < 0) {
-                        p = p + 2 * dy;
-                        // varies in x
-                        x1++;
-                    } else {
-                        p = p + 2 * dy - dx;
-                        x1++;
-                        y1++;
-                    }
-                    draw(g, new Point(x1, y1));
+            draw(g, new Point(x, y));
+        } else {
+            dx <<= 1;
+            p = dx - dy;
+            dy <<= 1;
+
+            while (y != p2.y) {
+                draw(g, new Point(x, y));
+                if (p >= 0) {
+                    x += slopeX;
+                    p -= dy;
                 }
+                p += dx;
+                y += slopeY;
             }
+            draw(g, new Point(x, y));
         }
-        // Runs the algorithm below if the slope of the line is greater than or equal to 0
-        else {
-            // If y1 > y2
-            if (dy < 0) {
-                p = dy + 2 * dx;
-                while (y1 > y2) {
-                    if (p < 0) {
-                        p = p + 2 * dx;
-                        // Varies in y
-                        y1--;
-                    } else {
-                        p = p + 2 * dy + dx;
-                        x1++;
-                        y1--;
-                    }
-                    draw(g, new Point(x1, y1));
-                }
-            }
-            // If y1 < y2
-            else {
-                p = dy - 2 * dx;
-                while (y1 < y2) {
-                    if (p < 0) {
-                        p = p + (-2 * dy - dx);
-                        x1++;
-                        y1++;
-                    } else {
-                        p = p + (-2 * dx);
-                        //Varies in y
-                        y1++;
-                    }
-                    draw(g, new Point(x1, y1));
-                }
-            }
-        }
-        draw(g, new Point(x1, y1));
     }
 
     private void draw(Graphics g, Point spot) {
