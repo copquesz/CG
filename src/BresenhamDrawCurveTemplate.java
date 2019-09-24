@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Lucas Copque
+ * @author Lucas Copque - 816112862 (CCP4BN-MCA1) / Denilson Medrano - 816122383 (CCP4BN-MCA2)
  * @version 1.0
  * @since 20/09/2019
  */
