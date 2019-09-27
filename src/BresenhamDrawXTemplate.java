@@ -24,7 +24,7 @@ public class BresenhamDrawXTemplate extends JPanel{
             slopeX = -1;
         }
 
-        // Sets the slope of the lines according to delta X.
+        // Sets the slope of the lines according to delta Y.
         if (p2.y >= p1.y) {
             dy = Math.abs(p2.y - p1.y);
             slopeY = 1;

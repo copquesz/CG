@@ -9,11 +9,13 @@ import java.awt.*;
 public class BresenhamDrawCurveTemplate extends JPanel {
 
     private void brasenhamAllSquad(Graphics g, Point p1, Point p2) {
+        // Set values
         int x, y;
         int dx, dy;
         int slopeX, slopeY;
         int p;
 
+        // Sets the slope of the lines according to delta X.
         if (p2.x >= p1.x) {
             dx = Math.abs(p2.x - p1.x);
             slopeX = 1;
@@ -22,6 +24,7 @@ public class BresenhamDrawCurveTemplate extends JPanel {
             slopeX = -1;
         }
 
+        // Sets the slope of the lines according to delta Y.
         if (p2.y >= p1.y) {
             dy = Math.abs(p2.y - p1.y);
             slopeY = 1;
